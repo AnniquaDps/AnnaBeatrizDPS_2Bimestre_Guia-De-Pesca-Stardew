@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Projeto 2º Bimestre DW1</title>
+    <link rel="stylesheet" href="entrada.css">
+    </link>
+</head>
+
+<body>
+    <header>
+        <div class="banner">
+            <h1>🎣 Guia de Pesca Stardew Valley 🎣</h1>
+        </div>
+    </header>
+    <div id="VaPaDireita">
+        <main>
+            <div id="Separando">
+                <div class="painel1">
+                    <h2>Busca Simples:</h2>
+                    <div class="BotaoImg">
+                        <img src="/Imagem html/Imagem painel 1 peixe.png">
+                        <button onclick="BuscaPeixe()">Mostrar toda a informação de todos os peixes
+                            cadastrados</button>
+                    </div>
+                    <br>
+                    <div class="BotaoImg">
+                        <img src="/Imagem html/Imagem painel 1 local.png">
+                        <button onclick="BuscaLocal()">Mostrar toda a informação de todos os lugares
+                            cadastrados</button>
+                    </div>
+                    <br>
+                    <div class="BotaoImg">
+                        <img src="/Imagem html/Imagem painel 1 ambos.png">
+                        <button onclick="BuscaPeixeLocal()">Mostrar ambos os dados das duas tabelas</button>
+                    </div>
+                    <br>
+                    <h3>Caixa de resposta:</h3>
+                    <div class="CaixaResposta">
+                        <span id="Resposta1" class="Resposta">Os dados da busca simples aparecerão aqui!</span>
+                    </div>
+                </div>
+                <div class="DaImagem">
+                    <img src="/Imagem html/Imagem direita.png">
+                </div>
+            </div>
+            <br><br>
+            <div class="painel2">
+                <h2>Busca Específica:</h2>
+                <div id="Caixa">
+                    <label for="NomePeixe" name="NomePeixe">Insira o nome do peixe que deseja buscar:</label>
+                    <input type="text" id="NomePeixe">
+                    <br>
+                    <button onclick="MandeUmSinalEspecifico()">Buscar</button>
+                    <br>
+                </div>
+            </div>
+            <h3>Caixa de resposta:</h3>
+            <div class="CaixaResposta">
+                <span id="Resposta2" class="Resposta">Os dados da busca específica aparecerão aqui!</span>
+            </div>
+        </main>
+        <br><br><br>
+    </div>
+    <footer>
+        <img src="/Imagem html/icon galinha.png">
+        <h4>Anna Beatriz Dal Pasquale de Souza</h4>
+    </footer>
+    <script>
+
+        // Definindo o endereço para onde vai a API
+        let enderecoServidor = 'localhost';
+        let porta = '3001';
+
+        //Buscar peixe
+        async function BuscaPeixe() {
+            try {
+                const resposta = await fetch(`http://${enderecoServidor}:${porta}/buscaPeixe`, { //Espere para buscar no endereço tal a função /buscaPeixe
+                    method: 'GET', //O método será GET porque não há envio de dados
+                });
+
+                const dados = await resposta.json(); 
+
+                if (dados.status === "Sucesso") {
+                    let dadosFormatados = ""
+                    dados.peixes.forEach(element => {
+                        dadosFormatados += `
+                            <div class="Resposta">
+                            <h4>${element.nome_peixe}</h4>
+                            
+                            
+                            <img class="ImagemPrincipal" src="${element.caminho}">
+
+                                
+                                <img class="ImagemResposta" src="/Imagem html/Recado - resposta.png">
+                                <label>Descrição:</label> ${element.descricao}
+                            
+
+                                <br>
+                                <img class="ImagemResposta" src="/Imagem html/boia - resposta.png">
+                                <label>Tamanho:</label> ${element.tamanho}
+                            
+
+                                <br>
+                                <img class="ImagemResposta" src="/Imagem html/Vara - Resposta.png">
+                                <label>Dificuldade:</label> ${element.dificuldade}
+                                <br><br>
+                            </div>`;
+                    });
+                    document.getElementById('Resposta1').innerHTML =
+                        `
+                        ${dadosFormatados}
+                    `;
+                } else {
+                    document.getElementById("Resposta1").innerHTML = `<div class="RespostaErrada"> Vixi, deu problema! </div>`;
+                }
+
+            } catch (erro) {
+                console.error('Erro:', erro);
+                document.getElementById('Resposta1').innerHTML = `<div class="RespostaErrada">Vixi deu problema no servidor</div>`;
+            }
+        }
+
+        //Buscar local
+
+        async function BuscaLocal() {
+            try {
+                const resposta = await fetch(`http://${enderecoServidor}:${porta}/buscaLocal`, {
+                    method: 'GET',
+                });
+
+                const dados = await resposta.json();
+
+                if (dados.status === "Sucesso") {
+                    let dadosFormatados = ""
+                    dados.locais.forEach(element => {
+                        dadosFormatados += `
+                            <div class="Resposta">
+                            <h4>${element.nome_peixe}</h4>
+                            <img class="ImagemResposta" src="/Imagem html/local imagem.png">
+                            <label for="local">Local:</label> ${element.localizacao}
+                            <br> 
+                            <img class="ImagemResposta" src="/Imagem html/Hora imagem.png">
+                            <label for="hora">Hora:</label> ${element.hora}
+                            <br>
+                            <img class="ImagemResposta" src="/Imagem html/Estacoes imagem.png">
+                            <label for="estacao">Estação:</label> ${element.estacao}
+                            <br>
+                            <img class="ImagemResposta" src="/Imagem html/Sol.png">
+                            <label for="tempo">Tempo:</label> ${element.clima}
+
+                            <br><br>
+                            </div>
+                            `
+                    });
+                    document.getElementById('Resposta1').innerHTML = `
+                        ${dadosFormatados}
+                            `;
+                } else {
+                    document.getElementById("Resposta1").innerHTML = `<div class="RespostaErrada"> Vixi, deu problema! </div>`;
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+                document.getElementById('Resposta1').innerHTML = `<div class="RespostaErrada">Vixi deu problema no servidor</div>`;
+            }
+
+        }
+
+        // Buscar os dois
+
+        async function BuscaPeixeLocal() {
+            try {
+                const resposta = await fetch(`http://${enderecoServidor}:${porta}/buscaPeixeLocal`, {
+                    method: 'GET',
+                });
+
+                const dados = await resposta.json();
+
+                if (dados.status === "Sucesso") {
+                    let dadosFormatados = ""
+                    dados.ambos.forEach(element => {
+                        dadosFormatados += `
+                        <div class="Resposta">
+                        <h4>${element.nome_peixe}</h4>
+                            
+                            
+                        <img class="ImagemPrincipal" src="${element.caminho}">
+
+                                
+                        <img class="ImagemResposta" src="/Imagem html/Recado - resposta.png">
+                        <label>Descrição:</label> ${element.descricao}
+                            
+
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/boia - resposta.png">
+                        <label>Tamanho:</label> ${element.tamanho}
+                            
+
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/Vara - Resposta.png">
+                        <label>Dificuldade:</label> ${element.dificuldade}
+                        <br>
+
+                        <img class="ImagemResposta" src="/Imagem html/local imagem.png">
+                        <label for="local">Local:</label> ${element.localizacao}
+                        <br> 
+                        <img class="ImagemResposta" src="/Imagem html/Hora imagem.png">
+                        <label for="hora">Hora:</label> ${element.hora}
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/Estacoes imagem.png">
+                        <label for="estacao">Estação:</label> ${element.estacao}
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/Sol.png">
+                        <label for="tempo">Tempo:</label> ${element.clima}
+                        <br><br>
+                        </div>
+                        `;
+                    })
+                    document.getElementById('Resposta1').innerHTML = `
+                        ${dadosFormatados}
+                            `;
+                } else {
+                    document.getElementById("Resposta1").innerHTML = `<div class="RespostaErrada"> Vixi, deu problema! </div>`;
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+                document.getElementById('Resposta1').innerHTML = `<div class="RespostaErrada">Vixi deu problema no servidor</div>`;
+            }
+        }
+
+        //Busca específica
+
+        async function MandeUmSinalEspecifico() {
+
+            //Inserindo o dado
+            let peixe = document.getElementById("NomePeixe").value;
+
+            //Validando o dado
+            let pacoteJSON = "";
+            if (peixe != "") {
+                pacoteJSON = {
+                    peixe: peixe
+                }
+            } else {
+                document.getElementById("Resposta2").innerHTML = `<div class="RespostaErrada">Insira alguma coisa usuário querido!</div>`;
+                return;
+            }
+
+            try {
+                const resposta = await fetch(`http://${enderecoServidor}:${porta}/BuscaNomePeixe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',  // Diz que estamos enviando JSON
+                    },
+                    body: JSON.stringify(pacoteJSON),
+                });
+
+                const dados = await resposta.json();
+                if (dados.status === "Sucesso" && dados != "[]") {
+                    let dadosFormatados = "";
+                    dados.RespostaEspecial.forEach(element => {
+                        dadosFormatados += `
+                        <div class="Resposta">
+                        <h4>${element.nome_peixe}</h4>
+                            
+                            
+                        <img class="ImagemPrincipal" src="${element.caminho}">
+
+                                
+                        <img class="ImagemResposta" src="/Imagem html/Recado - resposta.png">
+                        <label>Descrição:</label> ${element.descricao}
+                            
+
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/boia - resposta.png">
+                        <label>Tamanho:</label> ${element.tamanho}
+                            
+
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/Vara - Resposta.png">
+                        <label>Dificuldade:</label> ${element.dificuldade}
+                        <br>
+
+                        <img class="ImagemResposta" src="/Imagem html/local imagem.png">
+                        <label for="local">Local:</label> ${element.localizacao}
+                        <br> 
+                        <img class="ImagemResposta" src="/Imagem html/Hora imagem.png">
+                        <label for="hora">Hora:</label> ${element.hora}
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/Estacoes imagem.png">
+                        <label for="estacao">Estação:</label> ${element.estacao}
+                        <br>
+                        <img class="ImagemResposta" src="/Imagem html/Sol.png">
+                        <label for="tempo">Tempo:</label> ${element.clima}
+                        <br><br>
+                        </div>
+                        `;
+                    })
+                    document.getElementById('Resposta2').innerHTML = `
+                        ${dadosFormatados}
+                            `;
+                } else { document.getElementById("Resposta2").innerHTML = `<div class="RespostaErrada"> Vixi, deu problema. Insira um nome de peixe que existe! </div>`; }
+
+            } catch (erro) {
+                console.error('Erro:', erro);
+                document.getElementById('Resposta2').innerHTML = `<div class="RespostaErrada">Vixi deu problema no servidor</div>`;
+            }
+
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+body{
+    margin:0;
+    min-height:100vh;
+
+    background-image:url("/Imagem html/Imagem Html.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    font-family:Verdana, sans-serif;
+
+    cursor: url("/Imagem html/cursor.cur"), auto;
+}
+button:hover, select:hover {
+    cursor: url("/Imagem html/cursor.cur"), pointer;
+}
+#VaPaDireita{
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin:auto;
+  height:auto;
+  padding: 30px 10px;
+  background-color: rgba(255, 255, 255, 0.637);  
+}
+#Separando {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px; 
+}
+.painel1 {
+    flex: 1;
+}
+.painel1 button{
+    background-color: #03A007;
+    text-align: center;
+    border-color: #007448;
+    color: white;
+    box-shadow: 0px 1px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    width: 600px;
+    height: 40px;
+    margin: 0px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px black;
+    font-size:medium;
+    
+}
+.BotaoImg {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.BotaoImg img {
+    width: 40px;
+    height: auto;
+}
+.DaImagem img {
+    position: relative;
+    right: 100px;
+    width: 300px;
+    height: auto;
+}
+.painel1 h2, h3 {
+    color: rgb(47, 47, 47);
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Helvetica;
+}
+.CaixaResposta{
+    border:10px solid #974d2b;
+    background-color: #f9d090;
+    height: auto;
+    max-height: 500px;
+    padding: 20px;
+    box-shadow: 0px 5px #4c1810(0, 10%, 90%, 1.0);
+    width: 900px;
+    overflow: auto;
+}
+.CaixaResposta::-webkit-scrollbar {
+    width: 10px;
+}
+.CaixaResposta::-webkit-scrollbar-track {
+    background-color: #974d2b;
+}
+.CaixaResposta::-webkit-scrollbar-thumb {
+    background-color: #4c1810;
+}
+.CaixaResposta::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(255, 255, 255);
+}
+.Resposta {
+    text-align:left;
+}
+.painel2 h2, h3 {
+    color: rgb(47, 47, 47);
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Helvetica;
+}
+.painel2 label {
+    font-size:20px
+}
+.painel2 button{
+    background-color: #03A007;
+    text-align: center;
+    border-color: #007448;
+    color: white;
+    box-shadow: 0px 1px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    margin: 15px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px black;
+    font-size:medium;
+}
+#Caixa {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    gap: 5px;
+}
+#Caixa input, #Caixa select, #Caixa button {
+    height: 35px;
+}
+header {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+header h1{
+    color:white;
+    font-size:3rem;
+
+    text-shadow:
+    4px 4px #000,
+    0 0 20px #6ec6ff;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    padding: 20px;
+    color: rgb(29, 8, 134);
+    gap: 30px;
+    text-shadow:2px 2px #ffffff,
+    0 0 20px #6ec6ff; 
+}
+footer img {
+    width: 5%;
+}
+footer h4{
+    font-size: large;
+}
+@font-face {
+    font-family: 'Stardew Valley';
+    src: url(/Front/fonte/Stardew_Valley.ttf) format(truetype);
+}
+.Resposta {
+    color:#5e2514;
+    font-family: 'Stardew Valley';
+    font-size:xx-large;
+    
+}
+
+.Resposta h4{
+    font-size: 40px;
+    letter-spacing: 3px;
+    padding: 0%;
+    margin: 0%;
+}
+.Resposta label {
+    font-style: italic;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.ImagemPrincipal {
+    width: 80px; /* baiacu grande */
+    display: block;
+}
+
+.ImagemResposta {
+    width: 25px; /* ícones pequenos */
+}
